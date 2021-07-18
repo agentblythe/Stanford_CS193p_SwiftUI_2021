@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		491B3A5D26A307AE0069F444 /* Array+OneAndOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */; };
+		491B3A5F26A440F50069F444 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5E26A440F50069F444 /* AspectVGrid.swift */; };
 		4981421826909A9100C7B764 /* Stanford_MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */; };
 		4981421C26909A9600C7B764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421B26909A9600C7B764 /* Assets.xcassets */; };
 		4981421F26909A9600C7B764 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421E26909A9600C7B764 /* Preview Assets.xcassets */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+OneAndOnly.swift"; sourceTree = "<group>"; };
+		491B3A5E26A440F50069F444 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		4981421426909A9100C7B764 /* Stanford_Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanford_Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stanford_MemorizeApp.swift; sourceTree = "<group>"; };
 		4981421B26909A9600C7B764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				4981422D2690BFA100C7B764 /* ThemeView.swift */,
 				4981422F2690BFAF00C7B764 /* ThemeListView.swift */,
 				498142382690D66B00C7B764 /* EditThemeView.swift */,
+				491B3A5E26A440F50069F444 /* AspectVGrid.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				4981422A2690BF2100C7B764 /* CardView.swift in Sources */,
 				4981422E2690BFA100C7B764 /* ThemeView.swift in Sources */,
 				498142402696212400C7B764 /* MemoryGame.swift in Sources */,
+				491B3A5F26A440F50069F444 /* AspectVGrid.swift in Sources */,
 				4981421826909A9100C7B764 /* Stanford_MemorizeApp.swift in Sources */,
 				498142372690C77300C7B764 /* ValidColour.swift in Sources */,
 				498142332690C03500C7B764 /* Theme.swift in Sources */,
