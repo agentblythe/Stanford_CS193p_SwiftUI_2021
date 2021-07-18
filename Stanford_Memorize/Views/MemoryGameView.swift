@@ -18,9 +18,8 @@ struct MemoryGameView: View {
     var body: some View {
         GeometryReader { fullView in
             ZStack {
-                AspectVGrid(items: game.cards, aspectRatio: DrawingConstants.aspectRatio) { card in
+                AspectVGrid(items: game.cards, aspectRatio: DrawingConstants.aspectRatio, spacing: 5) { card in
                     CardView(card, colours: game.selectedTheme.Colours)
-                        .padding(4)
                         .onTapGesture {
                             game.choose(card)
                         }
