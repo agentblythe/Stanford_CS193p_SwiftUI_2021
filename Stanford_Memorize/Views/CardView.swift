@@ -11,6 +11,16 @@ struct CardView: View {
     private let card: EmojiMemoryGame.Card
     private let colours: [ValidColour]
     
+    init(_ card: EmojiMemoryGame.Card, colours: [ValidColour]) {
+        self.card = card
+        self.colours = colours
+    }
+    
+    init(_ card: EmojiMemoryGame.Card, colour: ValidColour) {
+        self.card = card
+        self.colours = [colour]
+    }
+    
     private struct DrawingConstants {
         static let cornerRadius: CGFloat = 10.0
         static let lineWidth: CGFloat = 2.0
@@ -26,13 +36,20 @@ struct CardView: View {
     @ViewBuilder
     func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
         let frontCardShape = cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-        
         if oneColour {
+            let colour = Color(validColour: colours.oneAndOnly!)
+            Circle()
+                .fill(colour)
             frontCardShape
-                .foregroundColor(Color(validColour: colours.oneAndOnly!))
+                .foregroundColor(colour)
         } else {
+            let gradient = EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
+            Circle()
+                .fill(LinearGradient(gradient: .init(colors: gradient),
+                                     startPoint: .topLeading,
+                                     endPoint: .bottomTrailing))
             frontCardShape
-                .gradientForeground(colors: EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours))
+                .gradientForeground(colors: gradient)
         }
         Text(card.content)
             .font(font(in: size))
@@ -49,7 +66,7 @@ struct CardView: View {
                 .gradientForeground(colors: EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours))
         }
     }
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -66,16 +83,12 @@ struct CardView: View {
     private func font(in size: CGSize) -> Font {
         Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
     }
-    
-    init(_ card: EmojiMemoryGame.Card, colours: [ValidColour]) {
-        self.card = card
-        self.colours = colours
-    }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(MemoryGame<String>.Card(content: "🤡", id: 5), colours: [.orange, .black])
+        let card = EmojiMemoryGame.Card(isFaceUp: true, isMatched: false, content: "🦊", seen: false, id: 0)
+        CardView(card, colour: ValidColour.orange)
     }
 }
 
