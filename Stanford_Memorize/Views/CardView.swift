@@ -25,6 +25,8 @@ struct CardView: View {
         static let cornerRadius: CGFloat = 10.0
         static let lineWidth: CGFloat = 2.0
         static let fontScale: CGFloat = 0.75
+        static let piePadding: CGFloat = 5
+        static let pieOpacity: Double = 0.5
     }
     
     private var oneColour: Bool {
@@ -34,23 +36,47 @@ struct CardView: View {
     private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
     
     @ViewBuilder
-    func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
+    private func pie(cols: [Color]) -> some View {
+        if oneColour {
+            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 110 - 90))
+                .fill(cols.oneAndOnly!)
+        } else {
+            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 110 - 90))
+                .fill(LinearGradient(gradient: .init(colors: cols),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing))
+        }
+    }
+    
+    func timerShape(colours: [Color]) -> some View {
+        pie(cols: colours)
+            .padding(DrawingConstants.piePadding)
+            .opacity(DrawingConstants.pieOpacity)
+    }
+    
+    func timerShape(colour: Color) -> some View {
+        timerShape(colours: [colour])
+    }
+    
+    @ViewBuilder
+    func frontContent() -> some View {
         let frontCardShape = cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
         if oneColour {
             let colour = Color(validColour: colours.oneAndOnly!)
-            Circle()
-                .fill(colour)
+            timerShape(colour: colour)
             frontCardShape
                 .foregroundColor(colour)
         } else {
             let gradient = EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
-            Circle()
-                .fill(LinearGradient(gradient: .init(colors: gradient),
-                                     startPoint: .topLeading,
-                                     endPoint: .bottomTrailing))
+            timerShape(colours: gradient)
             frontCardShape
                 .gradientForeground(colors: gradient)
         }
+    }
+    
+    @ViewBuilder
+    func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
+        frontContent()
         Text(card.content)
             .font(font(in: size))
     }
@@ -88,7 +114,7 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         let card = EmojiMemoryGame.Card(isFaceUp: true, isMatched: false, content: "🦊", seen: false, id: 0)
-        CardView(card, colour: ValidColour.orange)
+        CardView(card, colours: [ValidColour.orange, ValidColour.black])
     }
 }
 
