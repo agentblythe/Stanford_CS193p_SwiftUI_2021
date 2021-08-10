@@ -10,6 +10,8 @@
 		491B3A5D26A307AE0069F444 /* Array+OneAndOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */; };
 		491B3A5F26A440F50069F444 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5E26A440F50069F444 /* AspectVGrid.swift */; };
 		4922B41626A5FEE5002A8109 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922B41526A5FEE4002A8109 /* Pie.swift */; };
+		4942AB4426C1CACF00CF5B88 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942AB4326C1CACF00CF5B88 /* Cardify.swift */; };
+		4942AB4626C2FCEF00CF5B88 /* View+Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */; };
 		4981421826909A9100C7B764 /* Stanford_MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */; };
 		4981421C26909A9600C7B764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421B26909A9600C7B764 /* Assets.xcassets */; };
 		4981421F26909A9600C7B764 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421E26909A9600C7B764 /* Preview Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+OneAndOnly.swift"; sourceTree = "<group>"; };
 		491B3A5E26A440F50069F444 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		4922B41526A5FEE4002A8109 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		4942AB4326C1CACF00CF5B88 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
+		4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Cardify.swift"; sourceTree = "<group>"; };
 		4981421426909A9100C7B764 /* Stanford_Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanford_Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stanford_MemorizeApp.swift; sourceTree = "<group>"; };
 		4981421B26909A9600C7B764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4942AB3E26C18E5E00CF5B88 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				4942AB4326C1CACF00CF5B88 /* Cardify.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		4981420B26909A9100C7B764 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +92,7 @@
 		4981421626909A9100C7B764 /* Stanford_Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				4942AB3E26C18E5E00CF5B88 /* ViewModifiers */,
 				498142452699F59500C7B764 /* Extensions */,
 				498142312690C02C00C7B764 /* Models */,
 				4981423E2696206D00C7B764 /* ViewModels */,
@@ -138,6 +151,7 @@
 			children = (
 				498142462699F5A600C7B764 /* Color+ValidColour.swift */,
 				49B943E1269F730200D9F90A /* View+GradientForegound.swift */,
+				4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */,
 				491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */,
 			);
 			path = Extensions;
@@ -214,8 +228,10 @@
 			files = (
 				498142302690BFAF00C7B764 /* ThemeListView.swift in Sources */,
 				498142442699EA6C00C7B764 /* DefaultThemes.swift in Sources */,
+				4942AB4426C1CACF00CF5B88 /* Cardify.swift in Sources */,
 				4922B41626A5FEE5002A8109 /* Pie.swift in Sources */,
 				498142392690D66B00C7B764 /* EditThemeView.swift in Sources */,
+				4942AB4626C2FCEF00CF5B88 /* View+Cardify.swift in Sources */,
 				498142282690BF1800C7B764 /* MemoryGameView.swift in Sources */,
 				49B943E2269F730200D9F90A /* View+GradientForegound.swift in Sources */,
 				4981422A2690BF2100C7B764 /* CardView.swift in Sources */,

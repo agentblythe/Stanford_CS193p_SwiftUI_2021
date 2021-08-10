@@ -58,52 +58,66 @@ struct CardView: View {
         timerShape(colours: [colour])
     }
     
-    @ViewBuilder
-    func frontContent() -> some View {
-        let frontCardShape = cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-        if oneColour {
+//    @ViewBuilder
+//    func frontContent() -> some View {
+//        let frontCardShape = cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
+//        if oneColour {
+//            let colour = Color(validColour: colours.oneAndOnly!)
+//            timerShape(colour: colour)
+//            frontCardShape
+//                .foregroundColor(colour)
+//        } else {
+//            let gradient = EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
+//            timerShape(colours: gradient)
+//            frontCardShape
+//                .gradientForeground(colors: gradient)
+//        }
+//    }
+    
+//    @ViewBuilder
+//    func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
+//        frontContent()
+//        Text(card.content)
+//            .font(font(in: size))
+//    }
+    
+//    @ViewBuilder
+//    func back(of card: EmojiMemoryGame.Card) -> some View {
+//        let backCardShape = cardShape.fill()
+//        if oneColour {
+//            backCardShape
+//                .foregroundColor(translatedColours.first)
+//        } else {
+//            backCardShape
+//                .gradientForeground(colors: EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours))
+//        }
+//    }
+    
+    var translatedColours: [Color] {
+        if colours.count == 1 {
             let colour = Color(validColour: colours.oneAndOnly!)
-            timerShape(colour: colour)
-            frontCardShape
-                .foregroundColor(colour)
+            return [colour]
         } else {
-            let gradient = EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
-            timerShape(colours: gradient)
-            frontCardShape
-                .gradientForeground(colors: gradient)
-        }
-    }
-    
-    @ViewBuilder
-    func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
-        frontContent()
-        Text(card.content)
-            .font(font(in: size))
-    }
-    
-    @ViewBuilder
-    func back(of card: EmojiMemoryGame.Card) -> some View {
-        let backCardShape = cardShape.fill()
-        if oneColour {
-            backCardShape
-                .foregroundColor(Color(validColour: colours[0]))
-        } else {
-            backCardShape
-                .gradientForeground(colors: EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours))
+            return EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
         }
     }
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if card.isFaceUp {
-                    front(of: card, in: geometry.size)
-                } else if card.isMatched {
-                    cardShape.opacity(0)
-                } else {
-                    back(of: card)
-                }
+                pie(cols: translatedColours)
+                Text(card.content)
+                    .font(font(in: geometry.size))
+                
+//                if card.isFaceUp {
+//                    front(of: card, in: geometry.size)
+//                } else if card.isMatched {
+//                    cardShape.opacity(0)
+//                } else {
+//                    back(of: card)
+//                }
             }
+            .cardify(isFaceUp: card.isFaceUp, isMatched: card.isMatched, colours: translatedColours)
         }
     }
     private func font(in size: CGSize) -> Font {
