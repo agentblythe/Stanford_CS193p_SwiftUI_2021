@@ -22,9 +22,8 @@ struct CardView: View {
     }
     
     private struct DrawingConstants {
-        static let cornerRadius: CGFloat = 10.0
-        static let lineWidth: CGFloat = 2.0
         static let fontScale: CGFloat = 0.75
+        static let fontSize: CGFloat = 50
         static let piePadding: CGFloat = 5
         static let pieOpacity: Double = 0.5
     }
@@ -33,7 +32,7 @@ struct CardView: View {
         return colours.count == 1
     }
     
-    private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+//    private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
     
     @ViewBuilder
     private func pie(cols: [Color]) -> some View {
@@ -107,19 +106,24 @@ struct CardView: View {
             ZStack {
                 pie(cols: translatedColours)
                 Text(card.content)
-                    .font(font(in: geometry.size))
-                
-//                if card.isFaceUp {
-//                    front(of: card, in: geometry.size)
-//                } else if card.isMatched {
-//                    cardShape.opacity(0)
-//                } else {
-//                    back(of: card)
-//                }
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    .animation(Animation.easeInOut)
+                    // This causes issues when you change orientation and when the card size changes because Font is not animatable - changes to this do not get animated
+                    //.font(font(in: geometry.size))
+                    // Instead, use a set size and scale it up/down accordingly
+                    // Scale knows how to animate
+                    .font(Font.system(size: DrawingConstants.fontSize))
+                    .scaleEffect(scale(thatFits: geometry.size))
+                    
             }
             .cardify(isFaceUp: card.isFaceUp, isMatched: card.isMatched, colours: translatedColours)
         }
     }
+    
+    private func scale(thatFits size: CGSize) -> CGFloat {
+        return (min(size.width, size.height) * DrawingConstants.fontScale) / DrawingConstants.fontSize
+    }
+    
     private func font(in size: CGSize) -> Font {
         Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
     }

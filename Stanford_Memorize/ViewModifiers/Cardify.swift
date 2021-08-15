@@ -15,11 +15,13 @@ struct Cardify: ViewModifier {
     private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
     
     func body(content: Content) -> some View {
+        // Always have the content "showing" which means animations happen
+        // correctly due to the view being on screen all the time but change
+        // the opacity
+        content.opacity(isFaceUp ? 1 : 0)
+        
         if isFaceUp {
             cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-            content
-        } else if isMatched {
-            content.opacity(0.0)
         } else {
             let backCardShape = cardShape.fill()
             if colours.count == 1 {
