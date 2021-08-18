@@ -7,31 +7,51 @@
 
 import SwiftUI
 
-struct Cardify: ViewModifier {
-    var isFaceUp: Bool
+struct Cardify: AnimatableModifier {
+    
+    init(isFaceUp: Bool, isMatched: Bool, colours: [Color]) {
+        rotation = isFaceUp ? 0 : 180
+        self.isMatched = isMatched
+        self.colours = colours
+    }
+
     var isMatched: Bool
     var colours: [Color]
+    
+    var rotation: Double // in degrees
+
+    // Tell the system to animate the data but we will determine how this looks
+    var animatableData: Double {
+        get { rotation }
+        set { rotation = newValue }
+    }
     
     private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
     
     func body(content: Content) -> some View {
-        // Always have the content "showing" which means animations happen
-        // correctly due to the view being on screen all the time but change
-        // the opacity
-        content.opacity(isFaceUp ? 1 : 0)
-        
-        if isFaceUp {
-            cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-        } else {
-            let backCardShape = cardShape.fill()
-            if colours.count == 1 {
-                backCardShape
-                    .foregroundColor(colours.first)
+        ZStack {
+            // Always have the content "showing" which means animations happen
+            // correctly due to the view being on screen all the time but change
+            // the opacity
+            content.opacity(rotation < 90 ? 1 : 0)
+            
+            if rotation < 90 {
+                cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
             } else {
-                backCardShape
-                    .gradientForeground(colors: colours)
+                let backCardShape = cardShape.fill()
+                if colours.count == 1 {
+                    backCardShape
+                        .foregroundColor(colours.first)
+                } else {
+                    backCardShape
+                        .gradientForeground(colors: colours)
+                }
             }
         }
+        .rotation3DEffect(
+            Angle.degrees(rotation),
+            axis: (x: 0.0, y: 1.0, z: 0.0)
+        )
     }
     
     private struct DrawingConstants {

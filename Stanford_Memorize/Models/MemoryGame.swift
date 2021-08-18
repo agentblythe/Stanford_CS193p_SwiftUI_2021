@@ -72,6 +72,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
+    mutating func shuffle() {
+        cards.shuffle()
+    }
+    
     private func getScore(for elapsedTime: TimeInterval) -> Int {
         print("\(max(10 - elapsedTime, 1))")
         return Int(max(10 - elapsedTime, 1))

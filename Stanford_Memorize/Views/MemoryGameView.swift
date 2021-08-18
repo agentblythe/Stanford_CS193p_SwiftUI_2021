@@ -17,14 +17,11 @@ struct MemoryGameView: View {
     
     var body: some View {
         GeometryReader { fullView in
-            ZStack {
-                AspectVGrid(items: game.cards, aspectRatio: DrawingConstants.aspectRatio, spacing: 5) { card in
-                    CardView(card, colours: game.selectedTheme.Colours)
-                        .onTapGesture {
-                            game.choose(card)
-                        }
-                }
+            VStack {
+                gameBody
+                shuffleButton
             }
+            .padding()
             .onDisappear(perform: {
                 game.resetGameState()
             })
@@ -41,6 +38,31 @@ struct MemoryGameView: View {
                     Text("Score: \(game.score)")
                     .font(.headline))
         }
+    }
+    
+    var gameBody: some View {
+        AspectVGrid(items: game.cards, aspectRatio: DrawingConstants.aspectRatio, spacing: 5) { card in
+            if card.isMatched && !card.isFaceUp {
+                Color.clear
+            } else {
+                CardView(card, colours: game.selectedTheme.Colours)
+                    .onTapGesture {
+                        withAnimation {
+                            game.choose(card)
+                        }
+                    }
+            }
+        }
+    }
+    
+    var shuffleButton: some View {
+        Button(action: {
+            withAnimation {
+                game.shuffle()
+            }
+        }, label: {
+            Text("Shuffle")
+        })
     }
 }
 

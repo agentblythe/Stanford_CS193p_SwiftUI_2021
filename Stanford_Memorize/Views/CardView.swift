@@ -32,8 +32,6 @@ struct CardView: View {
         return colours.count == 1
     }
     
-//    private let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-    
     @ViewBuilder
     private func pie(cols: [Color]) -> some View {
         if oneColour {
@@ -56,41 +54,6 @@ struct CardView: View {
     func timerShape(colour: Color) -> some View {
         timerShape(colours: [colour])
     }
-    
-//    @ViewBuilder
-//    func frontContent() -> some View {
-//        let frontCardShape = cardShape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-//        if oneColour {
-//            let colour = Color(validColour: colours.oneAndOnly!)
-//            timerShape(colour: colour)
-//            frontCardShape
-//                .foregroundColor(colour)
-//        } else {
-//            let gradient = EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
-//            timerShape(colours: gradient)
-//            frontCardShape
-//                .gradientForeground(colors: gradient)
-//        }
-//    }
-    
-//    @ViewBuilder
-//    func front(of card: EmojiMemoryGame.Card, in size: CGSize) -> some View {
-//        frontContent()
-//        Text(card.content)
-//            .font(font(in: size))
-//    }
-    
-//    @ViewBuilder
-//    func back(of card: EmojiMemoryGame.Card) -> some View {
-//        let backCardShape = cardShape.fill()
-//        if oneColour {
-//            backCardShape
-//                .foregroundColor(translatedColours.first)
-//        } else {
-//            backCardShape
-//                .gradientForeground(colors: EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours))
-//        }
-//    }
     
     var translatedColours: [Color] {
         if colours.count == 1 {
