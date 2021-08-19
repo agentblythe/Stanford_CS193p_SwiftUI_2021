@@ -11,6 +11,8 @@ struct MemoryGameView: View {
     
     @ObservedObject var game: EmojiMemoryGame
     
+    @Namespace private var dealingNamespace
+    
     private struct DrawingConstants {
         static let aspectRatio: CGFloat = 2/3
     }
@@ -19,6 +21,7 @@ struct MemoryGameView: View {
         GeometryReader { fullView in
             VStack {
                 gameBody
+                deckBody
                 shuffleButton
             }
             .padding()
@@ -51,11 +54,24 @@ struct MemoryGameView: View {
     }
     
     private func dealAllCards() {
-        withAnimation {
-            for card in game.cards {
+        for card in game.cards {
+            withAnimation(dealAnimation(for: card)) {
                 deal(card)
             }
         }
+    }
+    
+    private func dealAnimation(for card: EmojiMemoryGame.Card) -> Animation {
+        var delay = 0.0
+        if let index = game.cards.firstIndex(where: { $0.id == card.id }) {
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.cards.count))
+        }
+        return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
+    }
+    
+    private func zIndex(of card: EmojiMemoryGame.Card) -> Double {
+        // Higher Z Indices are nearer the top
+        -Double(game.cards.firstIndex(where: {$0.id == card.id}) ?? 0)
     }
     
     var gameBody: some View {
@@ -64,7 +80,9 @@ struct MemoryGameView: View {
                 Color.clear
             } else {
                 CardView(card, colours: game.selectedTheme.Colours)
-                    .transition(.asymmetric(insertion: .scale, removal: .scale).animation(.easeInOut))
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    .transition(.asymmetric(insertion: .identity, removal: .scale))
+                    .zIndex(zIndex(of: card))
                     .onTapGesture {
                         withAnimation {
                             game.choose(card)
@@ -72,16 +90,6 @@ struct MemoryGameView: View {
                     }
             }
         }
-        .onChange(of: game.selectedTheme, perform: { _ in
-            dealt.removeAll()
-            dealAllCards()
-        })
-        .onAppear(perform: {
-            // Ensure the container is on screen first
-            // Then we can animate the containers contents to appear
-            // A view can only be animated if its container is already on screen
-            dealAllCards()
-        })
     }
     
     var shuffleButton: some View {
@@ -94,6 +102,32 @@ struct MemoryGameView: View {
         })
     }
 
+    var deckBody: some View {
+        ZStack {
+            ForEach(game.cards.filter(isUndealt)) { card in
+                CardView(card, colours: game.selectedTheme.Colours)
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    .transition(.asymmetric(insertion: .opacity, removal: .identity))
+                    .zIndex(zIndex(of: card))
+            }
+        }
+        .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight, alignment: .center)
+        .onTapGesture(perform: {
+            dealAllCards()
+        })
+        .onChange(of: game.selectedTheme, perform: { _ in
+            dealt.removeAll()
+            dealAllCards()
+        })
+    }
+    
+    private struct CardConstants {
+        static let aspectRatio: CGFloat = 2/3
+        static let dealDuration: Double = 0.5
+        static let totalDealDuration: Double = 2
+        static let undealtHeight: CGFloat = 90
+        static let undealtWidth: CGFloat = undealtHeight * aspectRatio
+    }
 }
 
 struct GameView_Previews: PreviewProvider {
