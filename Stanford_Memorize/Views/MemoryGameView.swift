@@ -19,27 +19,24 @@ struct MemoryGameView: View {
     
     var body: some View {
         GeometryReader { fullView in
-            VStack {
-                gameBody
+            ZStack(alignment: .bottom) {
+                VStack {
+                    gameBody
+                    HStack {
+                        restartButton
+                        Spacer()
+                        shuffleButton
+                    }
+                    .padding(.horizontal)
+                }
                 deckBody
-                shuffleButton
             }
             .padding()
-            .onDisappear(perform: {
-                game.resetGameState()
-            })
             .navigationBarTitle("\(game.selectedTheme.Title)")
             .navigationBarItems(
-                leading:
-                    Button(action: {
-                        game.resetGameState()
-                    }, label: {
-                        Image(systemName: "repeat.circle")
-                            .font(.headline)
-                    }),
                 trailing:
                     Text("Score: \(game.score)")
-                    .font(.headline))
+                .font(.headline))
         }
     }
     
@@ -99,6 +96,17 @@ struct MemoryGameView: View {
             }
         }, label: {
             Text("Shuffle")
+        })
+    }
+    
+    var restartButton: some View {
+        Button(action: {
+            withAnimation {
+                dealt.removeAll()
+                game.restart()
+            }
+        }, label: {
+            Text("Restart")
         })
     }
 

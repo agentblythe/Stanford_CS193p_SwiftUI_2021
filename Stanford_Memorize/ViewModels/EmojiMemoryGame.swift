@@ -69,12 +69,12 @@ class EmojiMemoryGame: ObservableObject {
         model?.choose(card)
     }
     
-    func resetGameState() {
-        //selectedTheme = themes.randomElement()!
-        model = Self.createMemoryGame(theme: selectedTheme)
-    }
-    
     func shuffle() {
         model?.shuffle()
+    }
+    
+    func restart() {
+        //selectedTheme = themes.randomElement()!
+        model = Self.createMemoryGame(theme: selectedTheme)
     }
 }
