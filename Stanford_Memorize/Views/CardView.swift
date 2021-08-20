@@ -32,16 +32,31 @@ struct CardView: View {
         return colours.count == 1
     }
     
+    @State private var animatedBonusRemaining: Double = 0
+    
     @ViewBuilder
     private func pie(cols: [Color]) -> some View {
         if oneColour {
-            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 110 - 90))
-                .fill(cols.oneAndOnly!)
+            pieShape
+                .foregroundColor(cols.oneAndOnly!)
         } else {
-            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 110 - 90))
-                .fill(LinearGradient(gradient: .init(colors: cols),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing))
+            pieShape
+                .gradientForeground(colors: cols)
+        }
+    }
+    
+    @ViewBuilder
+    var pieShape: some View {
+        if card.isConsumingBonusTime {
+            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - animatedBonusRemaining)*360 - 90))
+                .onAppear(perform: {
+                    animatedBonusRemaining = card.bonusRemaining
+                    withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+                        animatedBonusRemaining = 0
+                    }
+                })
+        } else {
+            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - card.bonusRemaining)*360 - 90))
         }
     }
     
