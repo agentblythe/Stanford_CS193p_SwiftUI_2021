@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct Stanford_MemorizeApp: App {
-    private let game = EmojiMemoryGame()
+    private let themeStore = ThemeStore(named: "Default")
     
     var body: some Scene {
         WindowGroup {
-            ThemeListView(game: game)
+            ThemeListView()
+                .environmentObject(themeStore)
         }
     }
 }

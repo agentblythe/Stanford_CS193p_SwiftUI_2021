@@ -32,7 +32,7 @@ struct MemoryGameView: View {
                 deckBody
             }
             .padding()
-            .navigationBarTitle("\(game.selectedTheme.Title)")
+            .navigationBarTitle("\(game.theme.name)")
             .navigationBarItems(
                 trailing:
                     Text("Score: \(game.score)")
@@ -76,7 +76,7 @@ struct MemoryGameView: View {
             if isUndealt(card) || (card.isMatched && !card.isFaceUp) {
                 Color.clear
             } else {
-                CardView(card, colours: game.selectedTheme.Colours)
+                CardView(card, colours: game.theme.colours)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(.asymmetric(insertion: .identity, removal: .scale))
                     .zIndex(zIndex(of: card))
@@ -113,7 +113,7 @@ struct MemoryGameView: View {
     var deckBody: some View {
         ZStack {
             ForEach(game.cards.filter(isUndealt)) { card in
-                CardView(card, colours: game.selectedTheme.Colours)
+                CardView(card, colours: game.theme.colours)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(.asymmetric(insertion: .opacity, removal: .identity))
                     .zIndex(zIndex(of: card))
@@ -123,7 +123,7 @@ struct MemoryGameView: View {
         .onTapGesture(perform: {
             dealAllCards()
         })
-        .onChange(of: game.selectedTheme, perform: { _ in
+        .onChange(of: game.theme, perform: { _ in
             dealt.removeAll()
             dealAllCards()
         })
@@ -140,6 +140,6 @@ struct MemoryGameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoryGameView(game: EmojiMemoryGame())
+        MemoryGameView(game: EmojiMemoryGame(using: DefaultThemes.all.first!))
     }
 }

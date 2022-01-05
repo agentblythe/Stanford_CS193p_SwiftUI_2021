@@ -77,7 +77,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     private func getScore(for elapsedTime: TimeInterval) -> Int {
-        //print("\(max(10 - elapsedTime, 1))")
         return Int(max(10 - elapsedTime, 1))
     }
     
@@ -156,7 +155,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         // Whether we are currently face up, unmatched and have not yet
         // used up bonus window
         var isConsumingBonusTime: Bool {
-            isFaceUp && !isMatched && bonusTimeRemaining > 0
+            return isFaceUp && !isMatched && bonusTimeRemaining > 0
         }
         
         // Called when the card transitions to face up state

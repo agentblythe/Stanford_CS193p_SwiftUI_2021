@@ -91,7 +91,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
 
 struct AspectVGrid_Previews: PreviewProvider {
     static var previews: some View {
-        AspectVGrid<EmojiMemoryGame.Card, CardView>(items: EmojiMemoryGame().cards, aspectRatio: 2/3, spacing: 5.0) { card in
+        AspectVGrid<EmojiMemoryGame.Card, CardView>(items: EmojiMemoryGame(using: DefaultThemes.all.first!).cards, aspectRatio: 2/3, spacing: 5.0) { card in
             CardView(card, colours: [.blue])
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Color+String.swift
+//  Color+.swift
 //  Stanford_Memorize
 //
 //  Created by Steve Blythe on 10/07/2021.
@@ -19,6 +19,11 @@ extension Color {
         case .yellow:   self = .yellow
         case .pink:     self = .pink
         case .purple:   self = .purple
+        case .brown:    if #available(iOS 15.0, *) {
+            self = .brown
+        } else {
+            self = Color(red: 139, green: 69, blue: 19)
+        }
         }
     }
 }

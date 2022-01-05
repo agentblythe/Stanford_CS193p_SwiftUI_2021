@@ -9,40 +9,20 @@ import Foundation
 
 struct DefaultThemes {
     static let all: [Theme] = [
-        halloweenTheme,
-        vehiclesTheme,
-        coloursTheme,
-        buildingsTheme,
-        numbersTheme
-
+        halloween,
+        vehicles,
+        clocks,
+        colours,
+        numbers
     ]
     
-    static let halloweenTheme = Theme(
-        title: "Halloween",
-        symbols: ["💀", "👻", "🎃", "😱", "🍭", "🐈‍⬛", "☠️", "🕷", "🕸", "👺", "🧟‍♂️", "⚰️", "🤖", "👽"],
-        colours: [.orange, .yellow])
+    private static let halloween = Theme(name: "Halloween", emojis: "💀👻🎃😱🍭🐈‍⬛☠️🕷🕸👺🧟‍♂️⚰️🤖👽", pairs: 14, colours: [.orange, .yellow])
     
-    static let vehiclesTheme = Theme(
-        title: "Vehicles",
-        symbols: ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🚛", "🚚", "🚜", "🛴", "🚲", "🛵", "🏍", "🛺", "🚂", "✈️", "🛩", "🚀", "🚁", "🚤", "🛥", "🛳", "⛴", "🚢", "🚠"],
-        colour: .blue,
-        pairs: 10)
+    private static let vehicles = Theme(name: "Vehicles", emojis: "🚗🚕🚙🚌🚎🏎🚓🚑🚒🚐🛻🚛🚚🚜🛴🚲🛵🏍🛺🚂✈️🛩🚀🚁🚤🛥🛳⛴🚢🚠", pairs: 10, colour: .blue)
     
-    static let clocksTheme = Theme(
-        title: "Clocks",
-        symbols: ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕜", "🕝", "🕞", "🕟", "🕠", "🕡", "🕢", "🕣", "🕤", "🕥", "🕦", "🕧"])
+    private static let clocks = Theme(name: "Clocks", emojis: "🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛🕜🕝🕞🕟🕠🕡🕢🕣🕤🕥🕦🕧", pairs: 12, colour: .black)
     
-    static let coloursTheme = Theme(
-        title: "Colours",
-        symbols: ["🟥", "🟧", "🟨", "🟩", "🟦", "🟪", "⬛️", "⬜️", "🟫"])
+    private static let colours = Theme(name: "Colours", emojis: "🟥🟧🟨🟩🟦🟪⬛️⬜️🟫", pairs: 9, colours: [.red, .orange])
     
-    static let numbersTheme = Theme(
-        title: "Numbers",
-        symbols: ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"])
-    
-    static let buildingsTheme = Theme(
-        title: "Buildings",
-        symbols: ["🏠", "🏚", "🏭", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏪", "🏨", "🏫", "🏩", "💒", "🏛", "⛪️", "🕌", "🕍", "🛕"],
-        colour: .purple,
-        pairs: 11)
+    private static let numbers = Theme(name: "Numbers", emojis: "0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟", pairs: 11, colour: .red)
 }

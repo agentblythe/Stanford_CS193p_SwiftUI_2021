@@ -1,5 +1,5 @@
 //
-//  View+GradientForegound.swift
+//  View+.swift
 //  Stanford_Memorize
 //
 //  Created by Steve Blythe on 14/07/2021.
@@ -13,5 +13,11 @@ extension View {
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing))
             .mask(self)
+    }
+}
+
+extension View {
+    public func cardify(isFaceUp: Bool, isMatched: Bool, colours: [Color]) -> some View {
+        self.modifier(Cardify(isFaceUp: isFaceUp, isMatched: isMatched, colours: colours))
     }
 }

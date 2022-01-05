@@ -8,124 +8,83 @@
 import SwiftUI
 
 struct ThemeListView: View {
-    @ObservedObject var game: EmojiMemoryGame
-
-    @State var showingSettingsView = false
+    @EnvironmentObject var store: ThemeStore
     
-    @State var editType: EditType = .change
+    @Environment(\.presentationMode) var presentationMode
     
-    @State var pushRandomGameView = false
+    @State private var editMode: EditMode = .inactive
     
-    var themeOptionsView: some View {
-        HStack {
-            Spacer()
-            playWithSelectedThemeButton
-            Spacer()
-            settingsButton
-            Spacer()
-            playWithRandomThemeButton
-            Spacer()
-        }
-        .font(.largeTitle)
-    }
+    @State private var editTheme: Theme? = nil
     
-    var playWithSelectedThemeButton: some View {
-        NavigationLink(
-            destination: MemoryGameView(game: game),
-            label: {
-                VStack {
-                    Image(systemName: "play.circle")
-                }
-            })
-    }
+    @State private var showAddForm = false
     
-    var playWithRandomThemeButton: some View {
-        VStack {
-            NavigationLink(
-                destination: MemoryGameView(game: game),
-                isActive: $pushRandomGameView,
-                label: {
-                    EmptyView()
-                })
-            Button(action: {
-                game.updateSelectedTheme(with: DefaultThemes.all.randomElement() ?? DefaultThemes.halloweenTheme)
-                pushRandomGameView = true
-            }, label: {
-                VStack {
-                    Image(systemName: "questionmark.circle")
-                }
-            })
-            .disabled(game.themes.count < 1)
-        }
-    }
+    @State var navigationViewIsActive: Bool = false
     
-    var settingsButton: some View {
-        Button(action: {
-            editType = .change
-            showingSettingsView = true
-        }, label: {
-            VStack {
-                Image(systemName: "gearshape")
-            }
-        })
-    }
-    
-    var themeList: some View {
-        List {
-            ForEach(game.themes, id: \.Title) { theme in
-                ThemeView(theme: theme, selected: game.selectedTheme == theme)
-                    .onTapGesture {
-                        handleThemeTap(theme: theme)
-                    }
-            }
-            .onDelete(perform: delete)
-        }
-    }
+    @State var selectedTheme : Theme? = nil
     
     var body: some View {
         NavigationView {
-            GeometryReader { fullView in
-                if game.themes.count > 0 {
-                    ZStack {
-                        ScrollView(.vertical, showsIndicators: true) {
-                            themeList
-                                .frame(width: fullView.size.width, height: fullView.size.height * 0.9, alignment: .center)
-                        }
-                        themeOptionsView
-                            .position(x: fullView.size.width / 2, y: fullView.size.height * 0.95)
+            VStack {
+                VStack {
+                    if selectedTheme != nil {
+                        NavigationLink(destination: MemoryGameView(game: EmojiMemoryGame(using: selectedTheme!)), isActive: $navigationViewIsActive){ EmptyView() }
                     }
-                    .navigationBarTitle("Themes")
-                    .navigationBarItems(
-                        leading: Button(action: {
-                            editType = .new
-                            showingSettingsView = true
-                        }, label: {
-                            Text("Add")
-                        }),
-                        trailing: EditButton())
-                    .sheet(isPresented: $showingSettingsView, content: {
-                        EditThemeView(viewModel: game, editType: $editType)
-                    })
-                } else {
-                    Text("Add a theme first!")
-                        .font(.title)
-                        .position(CGPoint(x: fullView.size.width / 2, y: fullView.size.height / 4))
+                }.hidden()
+            
+                List {
+                    ForEach(store.themes) { theme in
+                        ThemeView(theme: theme, selected: theme.name == store.selectedThemeName)
+                            .onTapGesture {
+                                if editMode == .active {
+                                    print("active")
+                                } else {
+                                    print("inactive")
+                                    store.selectTheme(theme)
+                                    selectedTheme = theme
+                                    navigationViewIsActive = true
+                                }
+                            }
+                    }
+                    .onDelete { indexSet in
+                        store.themes.remove(atOffsets: indexSet)
+                    }
+                    .onMove { indexSet, newOffset in
+                        store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
+                    }
+                }
+                .navigationTitle("Themes")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem { EditButton()
+                    }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        addButton
+                    }
+                }
+                .environment(\.editMode, $editMode)
+                .popover(item: $editTheme) { theme in
+                    ThemeEditor(theme: $store.themes[theme])
+                }
+                .popover(isPresented: $showAddForm) {
+                    AddThemeView()
+                        .environmentObject(store)
                 }
             }
         }
     }
     
-    func handleThemeTap(theme: Theme) {
-        game.updateSelectedTheme(with: theme)
-    }
-    
-    func delete(at offsets: IndexSet) {
-        game.themes.remove(atOffsets: offsets)
+    var addButton: some View {
+        Button {
+            showAddForm = true
+        } label: {
+            Text("Add")
+        }
     }
 }
 
 struct ThemeListView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeListView(game: EmojiMemoryGame())
+        ThemeListView()
+            .environmentObject(ThemeStore(named: "Preview"))
     }
 }

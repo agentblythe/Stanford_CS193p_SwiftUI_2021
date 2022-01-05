@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ValidColour: String, CaseIterable {
+enum ValidColour: String, CaseIterable, Equatable, Codable {
     case red
     case blue
     case green
@@ -17,4 +17,5 @@ enum ValidColour: String, CaseIterable {
     case purple
     case black
     case gray
+    case brown
 }

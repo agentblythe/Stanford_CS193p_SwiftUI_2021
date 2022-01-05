@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		491B3A5D26A307AE0069F444 /* Array+OneAndOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */; };
+		491B3A5D26A307AE0069F444 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5C26A307AE0069F444 /* Array+.swift */; };
 		491B3A5F26A440F50069F444 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B3A5E26A440F50069F444 /* AspectVGrid.swift */; };
 		4922B41626A5FEE5002A8109 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4922B41526A5FEE4002A8109 /* Pie.swift */; };
 		4942AB4426C1CACF00CF5B88 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942AB4326C1CACF00CF5B88 /* Cardify.swift */; };
-		4942AB4626C2FCEF00CF5B88 /* View+Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */; };
+		4943A5DE277A4BC3007671D9 /* AddThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943A5DD277A4BC3007671D9 /* AddThemeView.swift */; };
+		4943A5E0277A5979007671D9 /* Character+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943A5DF277A5979007671D9 /* Character+.swift */; };
+		4943A5E2277A611D007671D9 /* ColourPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943A5E1277A611D007671D9 /* ColourPreview.swift */; };
+		4943A5E4277A6134007671D9 /* ColourChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943A5E3277A6134007671D9 /* ColourChoice.swift */; };
 		4981421826909A9100C7B764 /* Stanford_MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */; };
 		4981421C26909A9600C7B764 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421B26909A9600C7B764 /* Assets.xcassets */; };
 		4981421F26909A9600C7B764 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4981421E26909A9600C7B764 /* Preview Assets.xcassets */; };
@@ -21,20 +24,27 @@
 		498142302690BFAF00C7B764 /* ThemeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981422F2690BFAF00C7B764 /* ThemeListView.swift */; };
 		498142332690C03500C7B764 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142322690C03500C7B764 /* Theme.swift */; };
 		498142372690C77300C7B764 /* ValidColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142362690C77300C7B764 /* ValidColour.swift */; };
-		498142392690D66B00C7B764 /* EditThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142382690D66B00C7B764 /* EditThemeView.swift */; };
 		498142402696212400C7B764 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4981423F2696212400C7B764 /* MemoryGame.swift */; };
 		498142422696237700C7B764 /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142412696237700C7B764 /* EmojiMemoryGame.swift */; };
 		498142442699EA6C00C7B764 /* DefaultThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142432699EA6C00C7B764 /* DefaultThemes.swift */; };
-		498142472699F5A600C7B764 /* Color+ValidColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142462699F5A600C7B764 /* Color+ValidColour.swift */; };
-		49B943E2269F730200D9F90A /* View+GradientForegound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B943E1269F730200D9F90A /* View+GradientForegound.swift */; };
+		498142472699F5A600C7B764 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498142462699F5A600C7B764 /* Color+.swift */; };
+		49A8D6632775ED9E00E851ED /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8D6622775ED9E00E851ED /* ThemeStore.swift */; };
+		49A8D6652775FE7300E851ED /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8D6642775FE7300E851ED /* ThemeEditor.swift */; };
+		49A8D6672775FEDD00E851ED /* RangeReplaceableCollection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8D6662775FEDD00E851ED /* RangeReplaceableCollection+.swift */; };
+		49A8D6692775FF0F00E851ED /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8D6682775FF0F00E851ED /* Collection+.swift */; };
+		49B0F915277B6CFC00483084 /* DrawingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0F914277B6CFC00483084 /* DrawingConstants.swift */; };
+		49B943E2269F730200D9F90A /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B943E1269F730200D9F90A /* View+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+OneAndOnly.swift"; sourceTree = "<group>"; };
+		491B3A5C26A307AE0069F444 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		491B3A5E26A440F50069F444 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		4922B41526A5FEE4002A8109 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		4942AB4326C1CACF00CF5B88 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
-		4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Cardify.swift"; sourceTree = "<group>"; };
+		4943A5DD277A4BC3007671D9 /* AddThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddThemeView.swift; sourceTree = "<group>"; };
+		4943A5DF277A5979007671D9 /* Character+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+.swift"; sourceTree = "<group>"; };
+		4943A5E1277A611D007671D9 /* ColourPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourPreview.swift; sourceTree = "<group>"; };
+		4943A5E3277A6134007671D9 /* ColourChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourChoice.swift; sourceTree = "<group>"; };
 		4981421426909A9100C7B764 /* Stanford_Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanford_Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4981421726909A9100C7B764 /* Stanford_MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stanford_MemorizeApp.swift; sourceTree = "<group>"; };
 		4981421B26909A9600C7B764 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,12 +56,16 @@
 		4981422F2690BFAF00C7B764 /* ThemeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeListView.swift; sourceTree = "<group>"; };
 		498142322690C03500C7B764 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		498142362690C77300C7B764 /* ValidColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidColour.swift; sourceTree = "<group>"; };
-		498142382690D66B00C7B764 /* EditThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditThemeView.swift; sourceTree = "<group>"; };
 		4981423F2696212400C7B764 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		498142412696237700C7B764 /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
 		498142432699EA6C00C7B764 /* DefaultThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultThemes.swift; sourceTree = "<group>"; };
-		498142462699F5A600C7B764 /* Color+ValidColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ValidColour.swift"; sourceTree = "<group>"; };
-		49B943E1269F730200D9F90A /* View+GradientForegound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+GradientForegound.swift"; sourceTree = "<group>"; };
+		498142462699F5A600C7B764 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		49A8D6622775ED9E00E851ED /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		49A8D6642775FE7300E851ED /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
+		49A8D6662775FEDD00E851ED /* RangeReplaceableCollection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RangeReplaceableCollection+.swift"; sourceTree = "<group>"; };
+		49A8D6682775FF0F00E851ED /* Collection+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
+		49B0F914277B6CFC00483084 /* DrawingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingConstants.swift; sourceTree = "<group>"; };
+		49B943E1269F730200D9F90A /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +134,12 @@
 				498142292690BF2100C7B764 /* CardView.swift */,
 				4981422D2690BFA100C7B764 /* ThemeView.swift */,
 				4981422F2690BFAF00C7B764 /* ThemeListView.swift */,
-				498142382690D66B00C7B764 /* EditThemeView.swift */,
 				491B3A5E26A440F50069F444 /* AspectVGrid.swift */,
 				4922B41526A5FEE4002A8109 /* Pie.swift */,
+				49A8D6642775FE7300E851ED /* ThemeEditor.swift */,
+				4943A5DD277A4BC3007671D9 /* AddThemeView.swift */,
+				4943A5E1277A611D007671D9 /* ColourPreview.swift */,
+				4943A5E3277A6134007671D9 /* ColourChoice.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,6 +151,7 @@
 				498142362690C77300C7B764 /* ValidColour.swift */,
 				4981423F2696212400C7B764 /* MemoryGame.swift */,
 				498142432699EA6C00C7B764 /* DefaultThemes.swift */,
+				49B0F914277B6CFC00483084 /* DrawingConstants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -142,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				498142412696237700C7B764 /* EmojiMemoryGame.swift */,
+				49A8D6622775ED9E00E851ED /* ThemeStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -149,10 +168,12 @@
 		498142452699F59500C7B764 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				498142462699F5A600C7B764 /* Color+ValidColour.swift */,
-				49B943E1269F730200D9F90A /* View+GradientForegound.swift */,
-				4942AB4526C2FCEF00CF5B88 /* View+Cardify.swift */,
-				491B3A5C26A307AE0069F444 /* Array+OneAndOnly.swift */,
+				498142462699F5A600C7B764 /* Color+.swift */,
+				49B943E1269F730200D9F90A /* View+.swift */,
+				491B3A5C26A307AE0069F444 /* Array+.swift */,
+				49A8D6662775FEDD00E851ED /* RangeReplaceableCollection+.swift */,
+				49A8D6682775FF0F00E851ED /* Collection+.swift */,
+				4943A5DF277A5979007671D9 /* Character+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -230,19 +251,26 @@
 				498142442699EA6C00C7B764 /* DefaultThemes.swift in Sources */,
 				4942AB4426C1CACF00CF5B88 /* Cardify.swift in Sources */,
 				4922B41626A5FEE5002A8109 /* Pie.swift in Sources */,
-				498142392690D66B00C7B764 /* EditThemeView.swift in Sources */,
-				4942AB4626C2FCEF00CF5B88 /* View+Cardify.swift in Sources */,
+				49A8D6692775FF0F00E851ED /* Collection+.swift in Sources */,
 				498142282690BF1800C7B764 /* MemoryGameView.swift in Sources */,
-				49B943E2269F730200D9F90A /* View+GradientForegound.swift in Sources */,
+				49B943E2269F730200D9F90A /* View+.swift in Sources */,
+				4943A5E2277A611D007671D9 /* ColourPreview.swift in Sources */,
+				4943A5E0277A5979007671D9 /* Character+.swift in Sources */,
 				4981422A2690BF2100C7B764 /* CardView.swift in Sources */,
+				49A8D6652775FE7300E851ED /* ThemeEditor.swift in Sources */,
+				4943A5DE277A4BC3007671D9 /* AddThemeView.swift in Sources */,
+				4943A5E4277A6134007671D9 /* ColourChoice.swift in Sources */,
 				4981422E2690BFA100C7B764 /* ThemeView.swift in Sources */,
+				49A8D6632775ED9E00E851ED /* ThemeStore.swift in Sources */,
 				498142402696212400C7B764 /* MemoryGame.swift in Sources */,
+				49B0F915277B6CFC00483084 /* DrawingConstants.swift in Sources */,
 				491B3A5F26A440F50069F444 /* AspectVGrid.swift in Sources */,
 				4981421826909A9100C7B764 /* Stanford_MemorizeApp.swift in Sources */,
 				498142372690C77300C7B764 /* ValidColour.swift in Sources */,
 				498142332690C03500C7B764 /* Theme.swift in Sources */,
-				498142472699F5A600C7B764 /* Color+ValidColour.swift in Sources */,
-				491B3A5D26A307AE0069F444 /* Array+OneAndOnly.swift in Sources */,
+				49A8D6672775FEDD00E851ED /* RangeReplaceableCollection+.swift in Sources */,
+				498142472699F5A600C7B764 /* Color+.swift in Sources */,
+				491B3A5D26A307AE0069F444 /* Array+.swift in Sources */,
 				498142422696237700C7B764 /* EmojiMemoryGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
