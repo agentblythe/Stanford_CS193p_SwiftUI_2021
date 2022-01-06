@@ -8,13 +8,11 @@
 import SwiftUI
 
 @main
-struct Stanford_MemorizeApp: App {
-    private let themeStore = ThemeStore(named: "Default")
-    
+struct Stanford_MemorizeApp: App {    
     var body: some Scene {
         WindowGroup {
             ThemeListView()
-                .environmentObject(themeStore)
+                .environmentObject(ThemeStore(named: "Default"))
         }
     }
 }

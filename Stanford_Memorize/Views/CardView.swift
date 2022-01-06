@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct CardView: View {
-    private let card: EmojiMemoryGame.Card
+    var card: EmojiMemoryGame.Card
     private let colours: [ValidColour]
+    @State private var animatedBonusRemaining : Double = 0
+    
+    private func startBonusTimeAnimation() {
+        animatedBonusRemaining = card.bonusRemaining
+        withAnimation(.linear(duration:card.bonusTimeRemaining)) {
+            animatedBonusRemaining = 0
+        }
+    }
     
     init(_ card: EmojiMemoryGame.Card, colours: [ValidColour]) {
         self.card = card
@@ -32,42 +40,48 @@ struct CardView: View {
         return colours.count == 1
     }
     
-    @State private var animatedBonusRemaining: Double = 0
-    
-    @ViewBuilder
-    private func pie(cols: [Color]) -> some View {
-        if oneColour {
-            pieShape
-                .foregroundColor(cols.oneAndOnly!)
-        } else {
-            pieShape
-                .gradientForeground(colors: cols)
+    var body: some View {
+        GeometryReader { geometry in
+            self.body(for: geometry.size)
         }
     }
     
     @ViewBuilder
-    var pieShape: some View {
-        if card.isConsumingBonusTime {
-            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - animatedBonusRemaining)*360 - 90))
-                .onAppear(perform: {
-                    animatedBonusRemaining = card.bonusRemaining
-                    withAnimation(.linear(duration: card.bonusTimeRemaining)) {
-                        animatedBonusRemaining = 0
+    private func body(for size: CGSize) -> some View {
+        if card.isFaceUp || !card.isMatched {
+            ZStack {
+                Group {
+                    if card.isConsumingBonusTime {
+                        Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - animatedBonusRemaining)*360 - 90))
+                            .gradientForeground(colors: translatedColours)
+                            .onAppear {
+                                self.startBonusTimeAnimation()
+                            }
+                    } else {
+                        Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - card.bonusRemaining)*360 - 90))
+                            .gradientForeground(colors: translatedColours)
                     }
-                })
-        } else {
-            Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: (1 - card.bonusRemaining)*360 - 90))
+                }
+                .padding(1).opacity(0.8)
+                .transition(.identity)
+                
+                Text(card.content)
+                    .font(Font.system(size: fontSize(for: size)))
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    .animation(card.isMatched ? Animation.linear(duration: 1)
+                                .repeatForever(autoreverses: false) : .default)
+                
+            }
+            .cardify(isFaceUp: card.isFaceUp, colours: card.theme.colours.map({ c in
+                Color(validColour: c)
+            }))
+            .transition(AnyTransition.scale)
         }
     }
     
-    func timerShape(colours: [Color]) -> some View {
-        pie(cols: colours)
-            .padding(DrawingConstants.piePadding)
-            .opacity(DrawingConstants.pieOpacity)
-    }
-    
-    func timerShape(colour: Color) -> some View {
-        timerShape(colours: [colour])
+    // MARK: - Drawing Constants
+    private func fontSize(for size: CGSize) -> CGFloat {
+        min(size.width, size.height) * 0.7
     }
     
     var translatedColours: [Color] {
@@ -78,38 +92,11 @@ struct CardView: View {
             return EmojiMemoryGame.translateThemeColoursToGradient(validColours: colours)
         }
     }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                pie(cols: translatedColours)
-                Text(card.content)
-                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
-                    .animation(Animation.easeInOut)
-                    // This causes issues when you change orientation and when the card size changes because Font is not animatable - changes to this do not get animated
-                    //.font(font(in: geometry.size))
-                    // Instead, use a set size and scale it up/down accordingly
-                    // Scale knows how to animate
-                    .font(Font.system(size: DrawingConstants.fontSize))
-                    .scaleEffect(scale(thatFits: geometry.size))
-                    
-            }
-            .cardify(isFaceUp: card.isFaceUp, isMatched: card.isMatched, colours: translatedColours)
-        }
-    }
-    
-    private func scale(thatFits size: CGSize) -> CGFloat {
-        return (min(size.width, size.height) * DrawingConstants.fontScale) / DrawingConstants.fontSize
-    }
-    
-    private func font(in size: CGSize) -> Font {
-        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
-    }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        let card = EmojiMemoryGame.Card(isFaceUp: true, isMatched: false, content: "🦊", seen: false, id: 0)
+        let card = EmojiMemoryGame.Card(isFaceUp: true, isMatched: false, theme: DefaultThemes.all.first!, content: "🦊", id: 0)
         CardView(card, colours: [ValidColour.orange, ValidColour.black])
     }
 }
