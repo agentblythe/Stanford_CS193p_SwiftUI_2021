@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct Cardify: AnimatableModifier {
+    var colours: [Color]
+    var rotation: Double // in degrees
     
-    init(isFaceUp: Bool, isMatched: Bool, colours: [Color]) {
+    init(isFaceUp: Bool, colours: [Color]) {
         rotation = isFaceUp ? 0 : 180
-        self.isMatched = isMatched
         self.colours = colours
     }
-
-    var isMatched: Bool
-    var colours: [Color]
     
-    var rotation: Double // in degrees
+    var isFaceUp: Bool {
+        rotation < 90
+    }
 
     // Tell the system to animate the data but we will determine how this looks
     var animatableData: Double {

@@ -8,21 +8,39 @@
 import SwiftUI
 
 struct ThemeView: View {
-    let theme: Theme
-    let selected: Bool
+    var theme: Theme
+    @Binding var editMode : EditMode
+    @State private var showThemeEditor = false
+
+    @EnvironmentObject var store: ThemeStore
     
     var themeTitle: some View {
-        HStack {
-            Text(theme.name)
-                .bold()
-            if selected {
-                Image(systemName: "checkmark.seal.fill")
-            }
-        }
-        .font(.title)
+        Text(theme.name)
+            .bold()
+            .font(.title)
     }
     
     var body: some View {
+        HStack {
+            if editMode != .inactive {
+                HStack {
+                    Image(systemName: "pencil.circle.fill").imageScale(.large)
+                        .onTapGesture {
+                            showThemeEditor = true
+                        }
+                        .sheet(isPresented: $showThemeEditor, onDismiss: {
+                            editMode = EditMode.inactive
+                        }) {
+                            ThemeEditor(theme: $store.themes[theme])
+                        }
+                }
+                .padding(.horizontal)
+            }
+        }
+        
+        
+        
+        
         VStack(alignment: .leading) {
             HStack {
                 if theme.colours.count == 1 {
@@ -48,6 +66,6 @@ struct ThemeView: View {
 
 struct ThemeView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeView(theme: DefaultThemes.all.first!, selected: true)
+        ThemeView(theme: DefaultThemes.all.first!, editMode: .constant(.active))
     }
 }

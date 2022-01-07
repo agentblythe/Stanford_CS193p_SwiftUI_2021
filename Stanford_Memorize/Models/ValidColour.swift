@@ -8,14 +8,19 @@
 import Foundation
 
 enum ValidColour: String, CaseIterable, Equatable, Codable {
-    case red
+    case black
     case blue
+    case brown
+    case cyan
+    case gray
     case green
-    case yellow
+    case indigo
+    case mint
     case orange
     case pink
     case purple
-    case black
-    case gray
-    case brown
+    case red
+    case teal
+    case white
+    case yellow
 }

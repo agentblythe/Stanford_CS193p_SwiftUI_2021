@@ -17,7 +17,7 @@ extension View {
 }
 
 extension View {
-    public func cardify(isFaceUp: Bool, isMatched: Bool, colours: [Color]) -> some View {
-        self.modifier(Cardify(isFaceUp: isFaceUp, isMatched: isMatched, colours: colours))
+    func cardify(isFaceUp: Bool, colours: [Color]) -> some View {
+        self.modifier(Cardify(isFaceUp: isFaceUp, colours: colours))
     }
 }

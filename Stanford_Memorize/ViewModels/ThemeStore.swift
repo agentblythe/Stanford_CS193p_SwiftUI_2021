@@ -18,18 +18,10 @@ class ThemeStore: ObservableObject {
         }
     }
     
-    @Published var selectedThemeName = "" {
-        didSet {
-            storeSelectedThemeNameInUserDefaults()
-        }
-    }
-    
     init(named name: String) {
         self.name = name
         
         restoreThemesFromUserDefaults()
-        
-        restoreSelectedThemeNameFromUserDefaults()
         
         if themes.isEmpty {
             addDefaultThemes()
@@ -40,16 +32,8 @@ class ThemeStore: ObservableObject {
         return "ThemeStore:" + name
     }
     
-    private var userDefaultsSelectedThemeNameKey: String {
-        return "SelectedTheme:" + name
-    }
-    
     private func storeThemesInUserDefaults() {
         UserDefaults.standard.set(try? JSONEncoder().encode(themes), forKey: userDefaultsKey)
-    }
-    
-    private func storeSelectedThemeNameInUserDefaults() {
-        UserDefaults.standard.set(selectedThemeName, forKey: userDefaultsSelectedThemeNameKey)
     }
     
     private func restoreThemesFromUserDefaults() {
@@ -59,17 +43,9 @@ class ThemeStore: ObservableObject {
         }
     }
     
-    private func restoreSelectedThemeNameFromUserDefaults() {
-        if let name = UserDefaults.standard.string(forKey: userDefaultsSelectedThemeNameKey) {
-            selectedThemeName = name
-        }
-    }
-    
     private func addDefaultThemes() {
         themes.removeAll()
         themes.insert(contentsOf: DefaultThemes.all, at: 0)
-        
-        selectedThemeName = themes.first!.name
     }
     
     // MARK: - Intents
@@ -89,9 +65,5 @@ class ThemeStore: ObservableObject {
     func insertTheme(_ theme: Theme, at index: Int = 0) {
         let safeIndex = min(max(0, index), themes.count)
         themes.insert(theme, at: safeIndex)
-    }
-    
-    func selectTheme(_ theme: Theme) {
-        selectedThemeName = theme.name
     }
 }

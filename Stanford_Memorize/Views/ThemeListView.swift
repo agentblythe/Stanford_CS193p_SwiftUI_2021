@@ -20,30 +20,17 @@ struct ThemeListView: View {
     
     @State var navigationViewIsActive: Bool = false
     
-    @State var selectedTheme : Theme? = nil
-    
     var body: some View {
-        NavigationView {
-            VStack {
-                VStack {
-                    if selectedTheme != nil {
-                        NavigationLink(destination: MemoryGameView(game: EmojiMemoryGame(using: selectedTheme!)), isActive: $navigationViewIsActive){ EmptyView() }
-                    }
-                }.hidden()
-            
+        VStack {
+            NavigationView {
                 List {
                     ForEach(store.themes) { theme in
-                        ThemeView(theme: theme, selected: theme.name == store.selectedThemeName)
-                            .onTapGesture {
-                                if editMode == .active {
-                                    print("active")
-                                } else {
-                                    print("inactive")
-                                    store.selectTheme(theme)
-                                    selectedTheme = theme
-                                    navigationViewIsActive = true
-                                }
-                            }
+                        NavigationLink(destination: MemoryGameView(game: EmojiMemoryGame(using: theme))
+                                        .navigationBarTitle(theme.name)
+                        ) {
+                            ThemeView(theme: theme, editMode: $editMode)
+                                .environmentObject(store)
+                        }
                     }
                     .onDelete { indexSet in
                         store.themes.remove(atOffsets: indexSet)
@@ -52,8 +39,7 @@ struct ThemeListView: View {
                         store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
                     }
                 }
-                .navigationTitle("Themes")
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(store.name, displayMode: .inline)
                 .toolbar {
                     ToolbarItem { EditButton()
                     }
@@ -61,14 +47,11 @@ struct ThemeListView: View {
                         addButton
                     }
                 }
-                .environment(\.editMode, $editMode)
-                .popover(item: $editTheme) { theme in
-                    ThemeEditor(theme: $store.themes[theme])
-                }
-                .popover(isPresented: $showAddForm) {
+                .popover(isPresented: $showAddForm, content: {
                     AddThemeView()
                         .environmentObject(store)
-                }
+                })
+                .environment(\.editMode, $editMode)
             }
         }
     }

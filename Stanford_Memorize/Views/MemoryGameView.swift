@@ -19,24 +19,55 @@ struct MemoryGameView: View {
     
     var body: some View {
         GeometryReader { fullView in
-            ZStack(alignment: .bottom) {
-                VStack {
-                    gameBody
-                    HStack {
-                        restartButton
-                        Spacer()
-                        shuffleButton
+            VStack {
+                HStack {
+                    Button(action:{
+                        withAnimation {
+                            dealt.removeAll()
+                            game.restart()
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("New Game")
+                        }
+                        .padding(10.0)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10.0)
+                                .stroke(lineWidth: 2.0)
+                        )
                     }
-                    .padding(.horizontal)
+                    Spacer()
+                    Text("Score: \(self.game.score)")
                 }
-                deckBody
+                .padding()
+                .onDisappear {
+                    game.leftViewMidGameTheme = game.theme
+                }
+                Divider()
+                ZStack(alignment: .bottom) {
+                    VStack {
+                        gameBody
+                        HStack {
+                            Spacer()
+                            shuffleButton
+                        }
+                        .padding(.horizontal)
+                    }
+                    deckBody
+                }
+                .onAppear(perform: {
+                    if game.leftViewMidGameTheme == game.theme {
+                        for card in game.cards {
+                            deal(card)
+                        }
+                    } else {
+                        game.restart()
+                    }
+                })
+                .padding()
+                .navigationBarTitle("\(game.theme.name)")
             }
-            .padding()
-            .navigationBarTitle("\(game.theme.name)")
-            .navigationBarItems(
-                trailing:
-                    Text("Score: \(game.score)")
-                .font(.headline))
         }
     }
     
@@ -96,17 +127,6 @@ struct MemoryGameView: View {
             }
         }, label: {
             Text("Shuffle")
-        })
-    }
-    
-    var restartButton: some View {
-        Button(action: {
-            withAnimation {
-                dealt.removeAll()
-                game.restart()
-            }
-        }, label: {
-            Text("Restart")
         })
     }
 
