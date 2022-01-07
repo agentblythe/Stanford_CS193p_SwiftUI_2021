@@ -41,6 +41,9 @@ struct MemoryGameView: View {
                     Text("Score: \(self.game.score)")
                 }
                 .padding()
+                .onDisappear {
+                    game.leftViewMidGameTheme = game.theme
+                }
                 Divider()
                 ZStack(alignment: .bottom) {
                     VStack {
@@ -53,6 +56,15 @@ struct MemoryGameView: View {
                     }
                     deckBody
                 }
+                .onAppear(perform: {
+                    if game.leftViewMidGameTheme == game.theme {
+                        for card in game.cards {
+                            deal(card)
+                        }
+                    } else {
+                        game.restart()
+                    }
+                })
                 .padding()
                 .navigationBarTitle("\(game.theme.name)")
             }

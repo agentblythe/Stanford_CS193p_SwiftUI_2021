@@ -10,14 +10,16 @@ import SwiftUI
 struct ColourPreview: View {
     let colours: [ValidColour]
     
+    var translatedColours: [Color] {
+        colours.map { c in
+            Color(validColour: c)
+        }
+    }
+    
     var body: some View {
         if colours.count == 0 || colours.count > 2 {
             RoundedRectangle(cornerRadius: DrawingConstants.roundedRectangleRadius)
                 .foregroundColor(.clear)
-                .overlay(overlayRect)
-        } else if colours.count == 1 {
-            RoundedRectangle(cornerRadius: DrawingConstants.roundedRectangleRadius)
-                .foregroundColor(Color(validColour: colours.first!))
                 .overlay(overlayRect)
         } else {
             RoundedRectangle(cornerRadius: DrawingConstants.roundedRectangleRadius)

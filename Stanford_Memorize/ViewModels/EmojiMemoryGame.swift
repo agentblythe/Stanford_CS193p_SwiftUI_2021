@@ -25,6 +25,8 @@ class EmojiMemoryGame: ObservableObject {
         model.theme
     }
     
+    var leftViewMidGameTheme: Theme? = nil
+    
     init(using theme: Theme) {
         self.model = Self.createMemoryGame(using: theme)
     }

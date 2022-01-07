@@ -20,9 +20,5 @@ struct Theme: Identifiable, Codable, Hashable, Equatable {
         self.pairs = pairs
         self.colours = colours
     }
-    
-    init(name: String, emojis: String, pairs: Int, colour: ValidColour) {
-        self.init(name: name, emojis: emojis, pairs: pairs, colours: [colour])
-    }
 }
 

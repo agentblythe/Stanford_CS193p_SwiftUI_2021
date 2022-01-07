@@ -62,7 +62,7 @@ struct CardView: View {
                             .gradientForeground(colors: translatedColours)
                     }
                 }
-                .padding(1).opacity(0.8)
+                .padding(1).opacity(0.6)
                 .transition(.identity)
                 
                 Text(card.content)

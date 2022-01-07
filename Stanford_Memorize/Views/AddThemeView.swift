@@ -16,7 +16,6 @@ struct AddThemeView: View {
     @State var emojis = ""
     @State var colours = [ValidColour]()
     @State var pairs: Int = 2
-    @State var selected = false
     
     let minPairs = 2
     
@@ -67,10 +66,6 @@ struct AddThemeView: View {
                 }
             }
             
-            Section(header: Text("Select")) {
-                Toggle("Selected", isOn: $selected)
-            }
-            
             if emojis.count > 2 {
                 Section(header: Text("Pairs")) {
                     Picker("Pairs", selection: $pairs) {
@@ -96,11 +91,7 @@ struct AddThemeView: View {
     
     func saveNewTheme() {
         var theme: Theme
-        if colours.count == 1 {
-            theme = Theme(name: name, emojis: emojis, pairs: pairs, colour: colours.first!)
-        } else {
-            theme = Theme(name: name, emojis: emojis, pairs: pairs, colours: colours)
-        }
+        theme  = Theme(name: name, emojis: emojis, pairs: pairs, colours: colours)
         store.insertTheme(theme)
         
         presentationMode.wrappedValue.dismiss()

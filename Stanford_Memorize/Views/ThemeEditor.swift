@@ -14,25 +14,31 @@ struct ThemeEditor: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Theme Name")
-                        .foregroundColor(theme.name.isEmpty ? .red : .gray)) {
-                TextField("Name", text: $theme.name)
-            }
-            
+            nameSection
             addEmojisSection
-            
             removeEmojisSection
-            
-            Section(header: Text("Pairs")) {
-                Picker("Pairs", selection: $theme.pairs) {
-                    ForEach(minPairs..<theme.emojis.count + 1, id: \.self) { i in
-                        Text("\(i)")
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-            }
+            colourSection
+            pairsSection
         }
         .navigationTitle("Edit \(theme.name)")
+    }
+    
+    var vGridLayout = [
+        GridItem(.adaptive(minimum: 30))
+    ]
+    
+    func handleColourTap(on colour: ValidColour) {
+        if theme.colours.count == 2 || theme.colours.count == 0 {
+            theme.colours.removeAll()
+        }
+        theme.colours.append(colour)
+    }
+    
+    var nameSection: some View {
+        Section(header: Text("Theme Name")
+                    .foregroundColor(theme.name.isEmpty ? .red : .gray)) {
+            TextField("Name", text: $theme.name)
+        }
     }
     
     @State private var emojisToAdd = ""
@@ -72,6 +78,40 @@ struct ThemeEditor: View {
                 }
             }
             .font(.system(size: 40))
+        }
+    }
+    
+    var colourSection: some View {
+        Section(header: HStack {
+            Text("Theme Colour(s)")
+                .foregroundColor(theme.colours.count == 0 ? .red : .gray)
+            Spacer()
+            HStack {
+                Text("Preview:")
+                ColourPreview(colours: theme.colours)
+                    .frame(width: 50)
+            }
+        }) {
+            LazyVGrid(columns: vGridLayout) {
+                ForEach(ValidColour.allCases, id: \.self) { colour in
+                    ColourChoice(colour: colour)
+                        .frame(width: 30, height: 30)
+                        .onTapGesture {
+                            handleColourTap(on: colour)
+                        }
+                }
+            }
+        }
+    }
+    
+    var pairsSection: some View {
+        Section(header: Text("Pairs")) {
+            Picker("Pairs", selection: $theme.pairs) {
+                ForEach(minPairs..<theme.emojis.count + 1, id: \.self) { i in
+                    Text("\(i)")
+                }
+            }
+            .pickerStyle(MenuPickerStyle())
         }
     }
 }
